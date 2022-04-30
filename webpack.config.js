@@ -10,6 +10,7 @@ module.exports = async function (env, args) {
         include: [
             path.join(__dirname, 'node_modules/react-router-native'),
             path.join(__dirname, 'node_modules/react-query'),
+            path.join(__dirname, 'node_modules/react-native-big-list'),
         ],
     });
 

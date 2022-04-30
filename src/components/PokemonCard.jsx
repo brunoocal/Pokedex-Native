@@ -52,7 +52,7 @@ export const PokemonCard = ({ raw }) => {
 
 const styles = StyleSheet.create({
     container: {
-        width: '45.7%',
+        width: 210,
         height: 155,
         margin: 10,
         justifyContent: 'flex-start',

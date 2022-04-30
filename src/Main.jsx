@@ -6,6 +6,7 @@ import { Pokemon } from './routes/pokemon.jsx';
 import Pokedex from 'pokedex-promise-v2';
 import { PokemonCard } from './components/PokemonCard.jsx';
 import Constants from 'expo-constants';
+import BigList from 'react-native-big-list';
 
 const P = new Pokedex({
     cacheLimit: 60 * 60 * 1000,
@@ -17,23 +18,24 @@ export const Main = () => {
             {/* <Routes>
                 <Route path="/" exact> */}
 
-            {/* </Route>
+            {/* </Rouate>
                 <Route path="/pokemon/:id" exact></Route> */}
-            {/* </Routes> */}
+            {/* </Routesasda> */}
 
             <Home pokedex={P}>
                 {({ pokemons, endCallback }) => (
-                    <FlatList
+                    <BigList
                         data={pokemons}
                         numColumns={2}
-                        keyExtractor={(item) => item.id}
-                        renderItem={({ item, index, separators }) => <PokemonCard raw={item} />}
+                        keyExtractor={(item) => `${item.id}`}
+                        renderItem={({ item }) => <PokemonCard raw={item} />}
                         onEndReached={() => endCallback()}
                         onEndReachedThreshold={0.2}
                         columnWrapperStyle={{
                             justifyContent: 'center',
                         }}
-                        getItemLayout={(data, index) => ({ length: 155, offset: 155 * index, index })}
+                        itemHeight={175}
+                        controlItemRender={false}
                         initialNumToRender={12}
                     />
                 )}
