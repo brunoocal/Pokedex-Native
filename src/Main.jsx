@@ -1,4 +1,4 @@
-import { View, FlatList } from 'react-native';
+import { View, useWindowDimensions } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Home } from './routes/home.jsx';
 import { Routes, Route } from 'react-router-native';
@@ -7,12 +7,15 @@ import Pokedex from 'pokedex-promise-v2';
 import { PokemonCard } from './components/PokemonCard.jsx';
 import Constants from 'expo-constants';
 import BigList from 'react-native-big-list';
+import { getFixedHeight, getFixedMargin } from './utils/responsiveness.js';
 
 const P = new Pokedex({
     cacheLimit: 60 * 60 * 1000,
 });
 
 export const Main = () => {
+    const { width: w, height: h } = useWindowDimensions();
+
     return (
         <View style={{ flex: 1, paddingTop: Constants.statusBarHeight }}>
             {/* <Routes>
@@ -34,7 +37,7 @@ export const Main = () => {
                         columnWrapperStyle={{
                             justifyContent: 'center',
                         }}
-                        itemHeight={175}
+                        itemHeight={getFixedHeight(h) + getFixedMargin(w, h).marginVertical * 2}
                         controlItemRender={false}
                         initialNumToRender={12}
                     />

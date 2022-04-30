@@ -1,22 +1,16 @@
-import { Text as TextNative, StyleSheet } from 'react-native';
+import { Text as TextNative, StyleSheet, useWindowDimensions } from 'react-native';
 import { getColor } from '../utils/pokemon-type-colors.js';
+import { getFixedSize, getFixedSmallSize, getFixedSubTitleSize, getFixedTitleSize } from '../utils/responsiveness.js';
 
 const styles = StyleSheet.create({
     title: {
         fontFamily: 'RadioCanada-Bold',
-        fontSize: 50,
     },
     subtitle: {
         fontFamily: 'RadioCanada-SemiBold',
-        fontSize: 22.5,
     },
     text: {
         fontFamily: 'RadioCanada',
-        fontSize: 18,
-    },
-    small: {
-        fontFamily: 'RadioCanada',
-        fontSize: 14,
     },
 });
 
@@ -51,11 +45,13 @@ const colors = StyleSheet.create({
 });
 
 export const Text = ({ style, weight, small, title, subtitle, color, children, ...restOfProps }) => {
+    const { height: h, width: w } = useWindowDimensions();
+
     const textStyles = [
-        styles.text,
-        title && styles.title,
-        subtitle && styles.subtitle,
-        small && styles.small,
+        { ...styles.text, fontSize: getFixedSize(w) },
+        title && { ...styles.title, fontSize: getFixedTitleSize(w) },
+        subtitle && { ...styles.subtitle, fontSize: getFixedSubTitleSize(w) },
+        small && { fontSize: getFixedSmallSize(w) },
         weight && weights[weight],
         (color && colors[color]) || { color: getColor(color) },
         style && style,

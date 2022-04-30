@@ -1,17 +1,16 @@
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, useWindowDimensions } from 'react-native';
 import { Text } from '../custom/Text';
 import { usePokemonList } from '../hooks/usePokemonList';
 import { Bars } from '../svgs/Bars.jsx';
 import PokeballBlack from '../../assets/pokeball-black.png';
+import { getFixedHorizontalPadding } from '../utils/responsiveness';
 
 export const Home = ({ children, pokedex }) => {
     const { pokemons, refetch: nextPage } = usePokemonList(pokedex);
-
-    const a = () => console.log('hola next page');
-
+    const { width: w } = useWindowDimensions();
     return (
         <View style={styles.parent}>
-            <View style={styles.container}>
+            <View style={{ ...styles.container, paddingHorizontal: getFixedHorizontalPadding(w) }}>
                 <View style={styles.icons}>
                     <Image style={styles.icon} source={PokeballBlack} />
                     <Bars style={{ ...styles.icon, color: '#000' }} />
@@ -43,7 +42,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 40,
         borderColor: 'blue',
     },
     pokemonContainer: {
