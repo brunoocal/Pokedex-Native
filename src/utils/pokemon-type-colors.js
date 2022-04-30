@@ -1,0 +1,43 @@
+export const colorsOriginals = {
+    normal: '#A8A77A',
+    fire: '#EE8130',
+    water: '#6390F0',
+    electric: '#F7D02C',
+    grass: '#7AC74C',
+    ice: '#96D9D6',
+    fighting: '#C22E28',
+    poison: '#A33EA1',
+    ground: '#E2BF65',
+    flying: '#A98FF3',
+    psychic: '#F95587',
+    bug: '#A6B91A',
+    rock: '#B6A136',
+    ghost: '#735797',
+    dragon: '#6F35FC',
+    dark: '#705746',
+    steel: '#B7B7CE',
+    fairy: '#D685AD',
+};
+
+export const colors = {
+    normal: '#a1a1aa',
+    fire: '#fb6c6c',
+    water: '#76bcfd',
+    electric: '#ffd76f',
+    grass: '#48d0b0',
+    ice: '#76e3fe',
+    fighting: '#fa7580',
+    poison: '#cb77f8',
+    ground: '#f8a477',
+    flying: '#88adde',
+    psychic: '#fa759d',
+    bug: '#a9bc15',
+    rock: '#c6bd8c',
+    ghost: '#a78bfa',
+    dragon: '#6f35fc',
+    dark: '#64748b',
+    steel: '#959494',
+    fairy: '#f4b1d6',
+};
+
+export const getColor = (type) => colors[type] || '#303943';

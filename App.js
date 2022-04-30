@@ -1,20 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useFonts } from 'expo-font';
+import { NativeRouter } from 'react-router-native';
+import { Main } from './src/Main';
+import { LogBox } from 'react-native';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    LogBox.ignoreLogs(['Setting a timer']);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    const [loaded] = useFonts({
+        RadioCanada: require('./assets/fonts/RadioCanada-Regular.ttf'),
+        'RadioCanada-Bold': require('./assets/fonts/RadioCanada-Bold.ttf'),
+        'RadioCanada-Light': require('./assets/fonts/RadioCanada-Light.ttf'),
+        'RadioCanada-Medium': require('./assets/fonts/RadioCanada-Medium.ttf'),
+        'RadioCanada-SemiBold': require('./assets/fonts/RadioCanada-SemiBold.ttf'),
+    });
+
+    if (!loaded) {
+        return null;
+    }
+
+    return (
+        <NativeRouter>
+            <Main />
+        </NativeRouter>
+    );
+}
