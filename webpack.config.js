@@ -9,7 +9,7 @@ module.exports = async function (env, args) {
         loader: 'babel-loader',
         include: [
             path.join(__dirname, 'node_modules/react-router-native'),
-            path.join(__dirname, 'node_modules/react-query'),
+            path.join(__dirname, 'node_modules/react-native-fast-image'),
             path.join(__dirname, 'node_modules/react-native-big-list'),
         ],
     });
