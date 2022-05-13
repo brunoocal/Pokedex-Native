@@ -1,7 +1,9 @@
 import { useFonts } from 'expo-font';
-import { NativeRouter } from 'react-router-native';
 import { Main } from './src/Main';
 import { LogBox } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+const Stack = createNativeStackNavigator();
 
 export default function App() {
     LogBox.ignoreLogs(['Setting a timer']);
@@ -19,8 +21,16 @@ export default function App() {
     }
 
     return (
-        <NativeRouter>
-            <Main />
-        </NativeRouter>
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen
+                    name="Home"
+                    options={{
+                        headerShown: false,
+                    }}
+                    component={Main}
+                />
+            </Stack.Navigator>
+        </NavigationContainer>
     );
 }

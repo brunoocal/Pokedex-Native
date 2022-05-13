@@ -1,11 +1,23 @@
-import { View, StyleSheet, Image } from 'react-native';
+import React from 'react';
+import { View, FlatList, Image } from 'react-native';
 import PokeballBlack from '../../assets/pokeball-black.png';
 import { Bars } from '../svgs/Bars';
 import { Text } from '../custom/Text';
 import { Style } from './Home.styles';
 import { usePokemonList } from '../hooks/usePokemonList';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-export const Home = ({ children, pokedex }) => {
+const ITEM_HEIGHT = hp(13.8) + wp(1.8518) * 2;
+
+const KEY_EXTRACTOR = ({ id }) => `${id}`;
+
+const ITEM_LAYOUT = (data, index) => ({
+    length: ITEM_HEIGHT,
+    offset: ITEM_HEIGHT * index,
+    index,
+});
+
+export const Home = React.memo(({ children, pokedex }) => {
     const { pokemons, refetch: nextPage } = usePokemonList(pokedex);
     return (
         <View style={Style.Home}>
@@ -20,9 +32,22 @@ export const Home = ({ children, pokedex }) => {
                     </Text>
                 </View>
                 <View style={Style.PokemonsWrapper}>
-                    {pokemons.length >= 1 && children({ pokemons, endCallback: nextPage })}
+                    {pokemons.length >= 1 && (
+                        <FlatList
+                            data={pokemons}
+                            numColumns={2}
+                            keyExtractor={KEY_EXTRACTOR}
+                            renderItem={children}
+                            onEndReached={nextPage}
+                            onEndReachedThreshold={0.2}
+                            initialNumToRender={12}
+                            getItemLayout={ITEM_LAYOUT}
+                            maxToRenderPerBatch={6}
+                            windowSize={12}
+                        />
+                    )}
                 </View>
             </View>
         </View>
     );
-};
+});

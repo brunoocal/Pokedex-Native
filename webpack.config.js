@@ -7,11 +7,7 @@ module.exports = async function (env, args) {
     config.module.rules.push({
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [
-            path.join(__dirname, 'node_modules/react-router-native'),
-            path.join(__dirname, 'node_modules/react-native-fast-image'),
-            path.join(__dirname, 'node_modules/react-native-big-list'),
-        ],
+        include: [path.join(__dirname, 'node_modules/@react-navigation/native-stack')],
     });
 
     return config;

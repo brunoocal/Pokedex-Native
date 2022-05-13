@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { View, Image } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { View, Image, TouchableWithoutFeedback } from 'react-native';
 import { Style } from './PokemonCard.style';
-
 import { capitalize } from '../utils/misc';
 import { getColor } from '../utils/pokemon-type-colors';
 import { Text } from '../custom/Text';
@@ -18,26 +17,34 @@ const parseRaw = (raw) => {
     };
 };
 
-const Card = ({ raw }) => {
+const Card = ({ raw, navigation }) => {
     const [pokemon] = useState(parseRaw(raw));
     const { color, name, types, sprites } = pokemon;
 
+    const onPress = () => {
+        navigation.navigate('Pokemon', { pokemon });
+    };
+
     return (
-        <View style={[Style.Card, { backgroundColor: color }]}>
-            <Text style={Style.Name} subtitle color="white">
-                {capitalize(name)}
-            </Text>
-            <View>
-                {types.map((type) => (
-                    <PokemonType style={Style.Type} key={type} type={type} />
-                ))}
+        <TouchableWithoutFeedback onPress={onPress}>
+            <View style={[Style.Card, { backgroundColor: color }]}>
+                <Text style={Style.Name} subtitle color="white">
+                    {useCallback(capitalize(name), [name])}
+                </Text>
+                <View>
+                    {types.map((type) => (
+                        <PokemonType style={Style.Type} key={type} type={type} />
+                    ))}
+                </View>
+                <View style={Style.AbsoluteContainer}>
+                    <Image style={Style.PokeballBackground} source={PokeballInverse} />
+                    <Image style={Style.Sprite} source={{ uri: sprites.front_default }} />
+                </View>
             </View>
-            <View style={Style.AbsoluteContainer}>
-                <Image style={Style.PokeballBackground} source={PokeballInverse} />
-                <Image style={Style.Sprite} source={{ uri: sprites.front_default }} />
-            </View>
-        </View>
+        </TouchableWithoutFeedback>
     );
 };
+
+Card.displayName = 'PokemonCard';
 
 export const PokemonCard = React.memo(Card);

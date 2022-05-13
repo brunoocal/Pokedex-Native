@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { useQuery } from 'react-query';
+import { useState, useEffect, useCallback } from 'react';
 
 export const usePokemonList = (Pokedex) => {
     const [data, setData] = useState({
@@ -21,9 +20,9 @@ export const usePokemonList = (Pokedex) => {
         });
     };
 
-    const refetch = () => {
+    const refetch = useCallback(() => {
         queryFunction();
-    };
+    }, [data.offset]);
 
     useEffect(() => {
         refetch();
